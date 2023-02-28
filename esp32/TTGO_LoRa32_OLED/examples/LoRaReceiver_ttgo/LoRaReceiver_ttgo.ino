@@ -48,7 +48,7 @@ void setup() {
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.println("LoRa Receiver");
+  Serial.println("LoRa Recebe");
 
   Display.begin();
   Display.enableUTF8Print();    // enable UTF8 support for the Arduino print() function
@@ -78,7 +78,7 @@ void loop() {
   if (packetSize) {
     // received a packet
     
-    Serial.print("Received packet '");
+    Serial.print("Recebendo do MOD-A: '");
 
     digitalWrite(blueLED, ON);  // Turn blue LED on
 
@@ -91,15 +91,23 @@ void loop() {
 
     // Display Info
     Display.clearBuffer();  
-    Display.setCursor(0,12); Display.print("LoRa Receiver");
-    Display.setCursor(0,26); Display.print("Received packet:");
-    Display.setCursor(0,42); Display.print("    '" + packet + "'");
-    Display.setCursor(0,58); Display.print("RSSI " + rssi);
+    
+    Display.setCursor(0,12);
+    Display.print("LoRa Recebe");
+    
+    Display.setCursor(0,26);
+    Display.print("Recebendo do MOD-A:");
+    
+    Display.setCursor(0,42);
+    Display.print(" '" + packet + "'");
+    
+    Display.setCursor(0,58);
+    Display.print("RSSI " + rssi);
+    
     Display.sendBuffer();
 
     digitalWrite(blueLED, OFF); // Turn blue LED off
     
-    Serial.println(packet + "' with RSSI " + rssi);     
+    Serial.println(packet + "' com RSSI " + rssi);     
   }
 }
-
