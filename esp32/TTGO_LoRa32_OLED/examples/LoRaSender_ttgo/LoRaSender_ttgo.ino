@@ -46,7 +46,7 @@ void setup() {
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.println("LoRa Sender");
+  Serial.println("LoRa Enviar");
 
   Display.begin();
   Display.enableUTF8Print();    // enable UTF8 support for the Arduino print() function
@@ -79,26 +79,34 @@ void setup() {
 }
 
 void loop() {
-  Serial.print("Sending packet: ");
+  Serial.print("Enviando Pacote: ");
   Serial.println(counter);
 
-  digitalWrite(blueLED, ON);  // Turn blue LED on
-  // send packet
+  digitalWrite(blueLED, ON);  // LED azul ligar
+  
+  // envia o dado
   LoRa.beginPacket();
-  LoRa.print("HeLoRa! ");
+  LoRa.print("LoRa: ");
   LoRa.print(counter);
   LoRa.endPacket();
-  digitalWrite(blueLED, OFF); // Turn blue LED off
+
+  digitalWrite(blueLED, OFF); // LED azul desligar
 
   // Display Info
   Display.clearBuffer();  
-  Display.setCursor(0,12); Display.print("LoRa Sender");
-  Display.setCursor(0,30); Display.print("Sent Packet:");
-  Display.setCursor(0,48); Display.print(" # " + (String)counter);
+  
+  Display.setCursor(0,12);
+  Display.print("PRO LoRa");
+  
+  Display.setCursor(0,30);
+  Display.print("Enviando:");
+  
+  Display.setCursor(0,48);
+  Display.print(" > " + (String)counter + " < ");
+  
   Display.sendBuffer();
 
   counter++;
 
   delay(5000);
 }
-
